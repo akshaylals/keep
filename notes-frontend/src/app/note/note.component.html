@@ -1,0 +1,17 @@
+<mat-grid-list cols="5" rowHeight="2:1">
+  <mat-grid-tile *ngFor="let note of notes">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ note.title }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ note.note }}</p>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
+
+
+<button mat-fab class="fab-button" aria-label="Add Note">
+  <mat-icon>add</mat-icon>
+</button>
