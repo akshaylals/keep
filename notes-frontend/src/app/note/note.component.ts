@@ -11,11 +11,30 @@ import { MatGridListModule } from '@angular/material/grid-list';
 export class NoteComponent implements OnInit {
   notes: any[] = [];
 
+  showNewNoteCard = false;
+  newNote: any = { title: '', note: '' };
+
   constructor(private noteService: NoteService) {}
 
   ngOnInit(): void {
     this.noteService.getNotes().subscribe((notes) => {
       this.notes = notes;
     });
+  }
+
+  openNewNoteCard(): void {
+    this.showNewNoteCard = true;
+  }
+
+  closeNewNoteCard(): void {
+    this.newNote = { title: '', note: '' };
+    this.showNewNoteCard = false;
+  }
+
+  createNewNote(): void {
+    this.noteService.createNote(this.newNote);
+    this.notes.push({ ...this.newNote });
+    this.newNote = { title: '', note: '' };
+    this.showNewNoteCard = false;
   }
 }

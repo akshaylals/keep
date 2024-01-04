@@ -12,6 +12,28 @@
 </mat-grid-list>
 
 
-<button mat-fab class="fab-button" aria-label="Add Note">
+<button mat-fab class="fab-button" (click)="openNewNoteCard()" aria-label="Add Note">
   <mat-icon>add</mat-icon>
 </button>
+
+<mat-card *ngIf="showNewNoteCard" class="new-note-card">
+  <mat-card-header>
+    <mat-card-title>Create a New Note</mat-card-title>
+    <button mat-icon-button (click)="closeNewNoteCard()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-card-header>
+  <mat-card-content>
+    <!-- Add form or input fields for creating a new note -->
+    <!-- For simplicity, let's assume you have a newNote object with title and note properties -->
+    <form (submit)="createNewNote()">
+      <mat-form-field>
+        <input matInput placeholder="Title" [(ngModel)]="newNote.title" name="title" required>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Note" [(ngModel)]="newNote.note" name="note" required></textarea>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Save</button>
+    </form>
+  </mat-card-content>
+</mat-card>
