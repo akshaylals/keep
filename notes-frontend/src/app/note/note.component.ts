@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NoteService } from '../note.service';
+import { NoteService } from './services/note.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 
@@ -32,8 +32,9 @@ export class NoteComponent implements OnInit {
   }
 
   createNewNote(): void {
-    this.noteService.createNote(this.newNote);
-    this.notes.push({ ...this.newNote });
+    this.noteService.createNote(this.newNote).subscribe((data) => {
+      this.notes.push({ ...data });
+    })
     this.newNote = { title: '', note: '' };
     this.showNewNoteCard = false;
   }
