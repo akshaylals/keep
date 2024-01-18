@@ -24,7 +24,7 @@ mat-card {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px; /* Adjust the width as needed */
-  height: 500px;
+  width: fit-content; /* Adjust the width as needed */
+  height: fit-content;
   z-index: 2; /* Ensure it appears above the grid list */
 }
