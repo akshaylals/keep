@@ -1,6 +1,6 @@
 <mat-grid-list [cols]="breakpoint" rowHeight="2:1" (window:resize)="onResize($event)">
   <mat-grid-tile *ngFor="let note of notes">
-    <mat-card>
+    <mat-card (click)="openEditNoteCard(note)">
       <mat-card-header>
         <mat-card-title>{{ note.title }}</mat-card-title>
       </mat-card-header>
@@ -31,7 +31,28 @@
     </form>
   </mat-card-content>
   <mat-card-actions align="end">
-    <button mat-button (click)="closeNewNoteCard()" color="warn">Close</button>
     <button mat-button (click)="createNewNote()" color="primary" type="submit">Save</button>
+    <button mat-button (click)="closeNewNoteCard()" color="disabled">Close</button>
+  </mat-card-actions>
+</mat-card>
+
+<mat-card *ngIf="showEditNoteCard" class="new-note-card">
+  <mat-card-header>
+    <mat-card-title>Edit Note</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form (submit)="updateNote()">
+      <mat-form-field>
+        <input matInput placeholder="Title" [(ngModel)]="editNote.title" name="title" required>
+      </mat-form-field><br>
+      <mat-form-field>
+        <textarea matInput placeholder="Note" [(ngModel)]="editNote.note" name="note" required></textarea>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-button (click)="deleteNote()" color="warn" type="submit">Delete</button>
+    <button mat-button (click)="updateNote()" color="primary" type="submit">Save</button>
+    <button mat-button (click)="closeEditNoteCard()" color="disabled">Close</button>
   </mat-card-actions>
 </mat-card>

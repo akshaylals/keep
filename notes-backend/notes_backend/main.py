@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -44,3 +44,20 @@ def get_note(db: Annotated[Session, Depends(get_db)], note_id: int):
 @app.post("/notes", response_model=schemas.Note)
 def create_note(db: Annotated[Session, Depends(get_db)], note: schemas.NoteCreate):
     return crud.create_note(db, note)
+
+@app.put("/notes/{note_id}", response_model=schemas.Note)
+def update_note(db: Annotated[Session, Depends(get_db)], note: schemas.NoteCreate, note_id: int):
+    updated_note = crud.update_note(db, note_id, note)
+    if updated_note:
+        return updated_note
+    else:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Note not found')
+
+@app.delete("/notes/{note_id}", response_model=schemas.Note)
+def get_note(db: Annotated[Session, Depends(get_db)], note_id: int):
+    deleted_note = crud.delete_note(db, note_id)
+    if deleted_note:
+        return deleted_note
+    else:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Note not found')
+
