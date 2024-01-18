@@ -1,6 +1,6 @@
 mat-card {
   width: calc(100% - 30px);
-  height: calc(100% - 30px);
+  height: fit-content;
 }
 
 :host {

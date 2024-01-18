@@ -13,13 +13,33 @@ export class NoteComponent implements OnInit {
 
   showNewNoteCard = false;
   newNote: any = { title: '', note: '' };
+  breakpoint: number;
 
-  constructor(private noteService: NoteService) {}
+  constructor(private noteService: NoteService) {
+    this.breakpoint = this.getGridCols();
+  }
 
   ngOnInit(): void {
     this.noteService.getNotes().subscribe((notes) => {
       this.notes = notes;
     });
+    this.breakpoint = this.getGridCols();
+  }
+
+  onResize(event: any) {
+    this.breakpoint = this.getGridCols();
+  }
+
+  getGridCols(){
+    if (window.innerWidth <= 400){
+      return 1;
+    } else if (window.innerWidth <= 700){
+      return 2;
+    } else if (window.innerWidth <= 1000){
+      return 3;
+    } else {
+      return 6;
+    }
   }
 
   openNewNoteCard(): void {

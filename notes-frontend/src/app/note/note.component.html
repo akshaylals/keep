@@ -1,4 +1,4 @@
-<mat-grid-list cols="5" rowHeight="2:1">
+<mat-grid-list [cols]="breakpoint" rowHeight="2:1" (window:resize)="onResize($event)">
   <mat-grid-tile *ngFor="let note of notes">
     <mat-card>
       <mat-card-header>
